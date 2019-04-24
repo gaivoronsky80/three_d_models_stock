@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<title>3dModelsSTOCK</title>
+	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" 
+	rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" 
+	crossorigin="anonymous">
+	{% load static %}
+	<link rel="stylesheet" href="{% static 'three_d_models_stock_app/css/style.css' %}">
+</head>
+<body>
+	<div class="wrapper">
+		<header class="header">
+			<h1>3DModelsSTOCK</h1>
+			<div class="dropdown">
+			  <button class="dropbtn">Categories</button>
+			  <div class="dropdown-content">
+			    <a href="#">Characters</a>
+			    <a href="#">Vehicle</a>
+			    <a href="#">Food</a>
+			    <a href="#">Interior</a>
+			  </div>
+			</div>
+			<div class="nav">
+				<form class="search_bar">
+					<input type="search" name="search" placeholder="search">
+					<button class="search_btn">Go!</button>
+				</form>
+				<a href="/">Home </a>|<a href="#" class="nav_link"> Logout</a>
+			</div>
+		</header>
+
+		<div class="content_left">
+			{% for user in users %}
+			<h1>Hello, {{user.first_name}}!</h1>
+			<p>Full Name: {{user.first_name}} {{user.last_name}}</p>
+			<p>Email: {{user.email}}</p>
+			<p>Created At: {{user.created_at}}</p>
+			<p>Uploaded: </p>
+			<p>Downloaded: </p>
+			{% endfor %}
+		</div>
+		<div class="content_right">
+			<a href="/edit_profile">
+				<button class="btn btn-primary btn-lg btn-block">Edit profile</button>
+			</a>
+			<a href="/new_model_page">
+				<button class="btn btn-primary btn-lg btn-block">Add new model!</button>
+			</a>
+			<h3>Last Added Model In Stock:</h3>
+			<div class="new_model_block">
+				<a><img src="{% static 'three_d_models_stock_app/images/2.jpg' %}"></a>
+			</div>
+		</div>
+		<div class="content_bottom">
+			<h3>Your models:</h3>
+			<table class="table table-sm">
+				<thead class="thead-dark">
+					<tr>
+						<th scope="col">Id</th>
+						<th scope="col">Name</th>
+						<th scope="col">Category</th>
+						<th scope="col">Rate</th>
+						<th scope="col">Created At</th>
+						<th scope="col">Updated At</th>
+						<th scope="col">Action</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for model in models %}
+					<tr>
+						<td >{{model.id}}</td>
+						<td >{{model.title}}</td>
+						<td >{{model.category}}</td>
+						<td >{{model.rate}}</td>
+						<td >{{model.created_at}}</td>
+						<td >{{model.updated_at}}</td>
+						<td>
+							<a href="/delete/{{model.id}}">Delete &nbsp</a>|
+							<a href="/edit_model/{{model.id}}">&nbsp Edit</a>
+						</td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+</body>
+</html>

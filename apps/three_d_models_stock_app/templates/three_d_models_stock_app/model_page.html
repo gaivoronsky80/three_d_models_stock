@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<title>3dModelsSTOCK</title>
+	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" 
+	rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" 
+	crossorigin="anonymous">
+	{% load static %}
+	<link rel="stylesheet" href="{% static 'three_d_models_stock_app/css/style.css' %}">
+</head>
+<body>
+	<div class="wrapper">
+		<header class="header">
+			<h1>3DModelsSTOCK</h1>
+			<div class="dropdown">
+			  <button class="dropbtn">Categories</button>
+			  <div class="dropdown-content">
+			    <a href="#">Characters</a>
+			    <a href="#">Vehicle</a>
+			    <a href="#">Food</a>
+			    <a href="#">Interior</a>
+			  </div>
+			</div>
+			<div class="nav">
+				<form class="search_bar">
+					<input type="search" name="search" placeholder="search">
+					<button>Go!</button>
+				</form>
+				<a href="/login">Home </a>|<a href="/register" class="nav_link"> Logout</a>
+			</div>
+		</header>
+		<div class="content">
+			<div>
+				<h1>Model #{{result[0]['model_id']}}!</h1>
+				<img src="#">
+			</div>
+			<div>
+				{% for i in models %}
+				<p>Title: {{i['title']}}</p>
+				<p>Author: {{i['author']}}</p>
+				<p>Category: {{i['category']}}</p>
+				<p>Created At: {{i['created_at']}}</p>
+				<p>Rate: {{i['rate']}}</p>
+				{% endfor %}
+			</div>
+		</div>
+		<div>
+			<div class="content">
+				<h3>Comments:</h3>
+				{% for i in comments %}
+				<p>{{i['comment']}}</p>
+				{% endfor %}
+			</div>
+			<div class="content">
+				<h3>Add comment:</h3>
+				<form action="#" method="POST">
+					<input type="text" name="comment">
+					<button>Submit</button>
+				</form>
+			</div>
+		</div>
+		<div class="side_bar">
+			<h3>Categories:</h3>
+			<a href="#">Character</a>
+			<a href="#">Vehicle</a>
+			<a href="#">Food</a>
+			<a href="#">Interior</a>
+			<form action="#" method="POST">
+				<h3>Rate:</h3>
+				<input type="radio" name="rate">
+				<input type="radio" name="rate">
+				<input type="radio" name="rate">
+				<input type="radio" name="rate">
+				<input type="radio" name="rate">
+			</form>
+			<a href="/download">
+				<button class="btn btn-primary">Download!</button>
+			</a>
+		</div>
+	</div>
+</body>
+</html>
