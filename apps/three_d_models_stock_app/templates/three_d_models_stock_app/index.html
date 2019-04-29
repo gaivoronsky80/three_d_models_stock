@@ -9,55 +9,138 @@
 	crossorigin="anonymous">
 	{% load static %}
 	<link rel="stylesheet" href="{% static 'three_d_models_stock_app/css/style.css' %}">
+	<link href='https://fonts.googleapis.com/css?family=Raleway:400,800,300' rel='stylesheet' type='text/css'>
 </head>
 <body>
 	<div class="wrapper">
 		<header class="header">
 			<h1>3DModelsSTOCK</h1>
-			<div class="dropdown">
-			  <button class="dropbtn">Categories</button>
-			  <div class="dropdown-content">
-			    <a href="#">Characters</a>
-			    <a href="#">Vehicle</a>
-			    <a href="#">Food</a>
-			    <a href="#">Interior</a>
-			  </div>
-			</div>
 			<div class="nav">
-				<form class="search_bar">
-					<input type="search" name="search" placeholder="search">
-					<button class="search_btn">Go!</button>
+				<form action="{% url 'search' %}" method="GET">
+				    <input type="text" name="q" value="{{request.GET.q}}" placeholder="search..." />
 				</form>
-				<a href="/login">Login </a>|<a href="/register" class="nav_link"> Register</a>
+				<a href="#" class="nav_link" onclick="showModalWin_1()">Login </a>|<a href="#" onclick="showModalWin_2()" class="nav_link"> Register</a>
 			</div>
 		</header>
-
 		<div class="block_content">
+			{% for x in img_index %}
 			<div class="block">
-				<a><img src="{% static 'three_d_models_stock_app/images/1.jpg' %}"></a>
+				<figure class="effect-zoe">
+					<a href="#"><img src="{{MEDIA_URL}}{{x.cover}}" onclick="showModalWin_1()"></a>
+					<figcaption>
+		                <p class="description">You should <span class="color">Login</span> 
+		                	befor you will be able to <span class="color">Download</span></p>
+		            </figcaption>           
+		        </figure>
 			</div>
-			<div class="block">
-				<a><img src="{% static 'three_d_models_stock_app/images/2.jpg' %}"></a>
+			{% endfor %}
+		</div>
+
+		<div style="text-align: center" id="popupWin_login" class="modalwin">
+			<div class="register">
+				<div id="messages">
+				{% if messages %}
+					<ul class="messages">
+					{% for message in messages %}
+						<li class="{{ message.tags }}">{{ message }}</li>
+					{% endfor %}
+					</ul>
+				{% endif %}
+				</div>
+				<div id="registration-form">
+					<div class='fieldset'>
+						<legend>3DModelsSTOCK</legend>
+						<form action="login_process" method="post" data-validate="parsley">
+						{% csrf_token %}
+							<div class='row'>
+								<label for="email">E-mail</label>
+								<input type="text" placeholder="E-mail"  name='email' data-required="true" data-type="email" data-error-message="Your E-mail is required">
+							</div>
+							<div class='row'>
+								<label for="password">Password</label>
+								<input type="text" placeholder="Password" name='password' data-required="true" data-error-message="Your E-mail must correspond">
+							</div>
+							<input type="submit" value="Login">
+						</form>
+					</div>
+				</div>
 			</div>
-			<div class="block">
-				<a><img src="{% static 'three_d_models_stock_app/images/3.jpg' %}"></a>
-			</div>
-			<div class="block">
-				<a><img src="{% static 'three_d_models_stock_app/images/4.jpg' %}"></a>
-			</div>
-			<div class="block">
-				<a><img src="{% static 'three_d_models_stock_app/images/5.jpg' %}"></a>
-			</div>
-			<div class="block">
-				<a><img src="{% static 'three_d_models_stock_app/images/6.jpg' %}"></a>
-			</div>
-			<div class="block">
-				<a><img src="{% static 'three_d_models_stock_app/images/7.jpg' %}"></a>
-			</div>
-			<div class="block">
-				<a><img src="{% static 'three_d_models_stock_app/images/8.jpg' %}"></a>
+		</div>
+
+		<div style="text-align: center" id="popupWin_register" class="modalwin_register">
+			<div class="register">
+				<div id="messages">
+				   {% if messages %}
+				   <ul class="messages">
+					  {% for message in messages %}
+					  <li class="{{ message.tags }}">{{ message }}</li>
+					  {% endfor %}
+				   </ul>
+				   {% endif %}
+				</div>
+				<div id="registration-form">
+					<div class='fieldset'>
+						<legend>3DModelsSTOCK</legend>
+						<form action="register_process" method="post" data-validate="parsley">
+								{% csrf_token %}
+							<div class='row'>
+								<label for='first_name'>First Name</label>
+								<input type="text" placeholder="First Name" name='first_name' id='first_name' data-required="true" data-error-message="Your First Name is required">
+							</div>
+							<div class='row'>
+								<label for='last_name'>Last Name</label>
+								<input type="text" placeholder="Last Name" name='last_name' id='last_name' data-required="true" data-error-message="Your First Name is required">
+							</div>
+							<div class='row'>
+								<label for="email">E-mail</label>
+								<input type="text" placeholder="E-mail"  name='email' data-required="true" data-type="email" data-error-message="Your E-mail is required">
+							</div>
+							<div class='row'>
+								<label for="password">Password</label>
+								<input type="text" placeholder="Password" name='password' data-required="true" data-error-message="Your E-mail must correspond">
+							</div>
+							<div class='row'>
+								<label for="confirm_password">Confirm your password</label>
+								<input type="text" placeholder="Confirm Password" name='confirm_password' data-required="true" >
+							</div>
+							<input type="submit" value="Register">
+						</form>
+					</div>
+				</div>
 			</div>
 		</div>		
 	</div>
+    <script type="text/javascript">
+        function showModalWin_1() {
+
+            var darkLayer = document.createElement('div'); // слой затемнения
+            darkLayer.id = 'shadow'; // id чтобы подхватить стиль
+            document.body.appendChild(darkLayer); // включаем затемнение
+
+            var modalWin = document.getElementById('popupWin_login'); // находим наше "окно"
+            modalWin.style.display = 'block'; // "включаем" его
+
+            darkLayer.onclick = function () {  // при клике на слой затемнения все исчезнет
+                darkLayer.parentNode.removeChild(darkLayer); // удаляем затемнение
+                modalWin.style.display = 'none'; // делаем окно невидимым
+                return false;
+            };
+        }
+        function showModalWin_2() {
+
+            var darkLayer = document.createElement('div'); // слой затемнения
+            darkLayer.id = 'shadow'; // id чтобы подхватить стиль
+            document.body.appendChild(darkLayer); // включаем затемнение
+
+            var modalWin = document.getElementById('popupWin_register'); // находим наше "окно"
+            modalWin.style.display = 'block'; // "включаем" его
+
+            darkLayer.onclick = function () {  // при клике на слой затемнения все исчезнет
+                darkLayer.parentNode.removeChild(darkLayer); // удаляем затемнение
+                modalWin.style.display = 'none'; // делаем окно невидимым
+                return false;
+            };
+        }
+    </script>
 </body>
 </html>

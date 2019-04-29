@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, 
+	shrink-to-fit=no">
+	<title>3dModelsSTOCK - ADMIN</title>
+	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" 
+	rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" 
+	crossorigin="anonymous">
+	{% load static %}
+	<link rel="stylesheet" href="{% static 'three_d_models_stock_app/css/style.css' %}">
+</head>
+<body>
+	<div class="wrapper">
+		<header class="header">
+			<a href="/session_home" class="logo">3DModelsSTOCK</a>
+			<div class="nav">
+				<form action="{% url 'search' %}" method="GET">
+				    <input type="text" name="q" value="{{request.GET.q}}" 
+				    placeholder="search..." />
+				</form>
+				<a href="/logout" 
+				class="nav_link">Logout</a>
+			</div>
+		</header>
+		<div class="content_left_admin">
+			<h1>Hello, Admin!</h1>
+			{% for x in count_users %}
+			<p>Registered Users: <span class="color">{{x}}</span></p>
+			{% endfor %}
+			{% for x in count_models %}
+			<p>Uploaded Models: <span class="color">{{x}}</span></p>
+			{% endfor %}
+		</div>
+		<div class="content_bottom_admin">
+			<h3>All models:</h3>
+			<table class="table table-sm">
+				<thead class="thead-dark">
+					<tr>
+						<th scope="col">Id</th>
+						<th scope="col">Name</th>
+						<th scope="col">Rate</th>
+						<th scope="col">Category</th>
+						<th scope="col">Created At</th>
+						<th scope="col">Updated At</th>
+						<th scope="col">Action</th>
+					</tr>
+				</thead>
+			</table>
+			<div class="activitis">
+				<table class="table table-sm">
+					<tbody>
+						{% for model in models %}
+						<tr>
+							<td >{{model.id}}</td>
+							<td >{{model.title}}</td>
+							<td >{{model.rate}}</td>
+							<td >{{model.category}}</td>
+							<td >{{model.created_at}}</td>
+							<td >{{model.updated_at}}</td>
+							<td>
+								<a href="/admin_control/{{model.id}}">Delete &nbsp</a>
+							</td>
+						</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+			<h3>All users:</h3>
+			<table class="table table-sm">
+				<thead class="thead-dark">
+					<tr>
+						<th scope="col">Id</th>
+						<th scope="col">Full Name</th>
+						<th scope="col">Email</th>
+						<th scope="col">Created At</th>
+						<th scope="col">Updated At</th>
+						<th scope="col">Action</th>
+					</tr>
+				</thead>
+			</table>
+			<div class="activitis">
+				<table class="table table-sm">
+					<tbody>
+						{% for user in users %}
+						<tr>
+							<td >{{user.id}}</td>
+							<td >{{user.first_name}} {{user.last_name}}</td>
+							<td >{{user.email}}</td>
+							<td >{{user.created_at}}</td>
+							<td >{{user.updated_at}}</td>
+							<td>
+								<a href="/admin_control/{{user.id}}">Delete</a>
+							</td>
+						</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>			
+		</div>
+	</div>	
+</body>
+</html>
