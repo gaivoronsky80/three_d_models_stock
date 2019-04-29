@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<title>3dModelsSTOCK</title>
+	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" 
+	rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" 
+	crossorigin="anonymous">
+	{% load static %}
+	<link rel="stylesheet" href="{% static 'three_d_models_stock_app/css/style.css' %}">
+</head>
+<body>
+	<div class="wrapper">
+		<header class="header">
+			<a href="/session_home" class="logo">3DModelsSTOCK</a>
+			<div class="nav">
+				<form action="{% url 'search' %}" method="GET">
+				    <input type="text" name="q" value="{{request.GET.q}}" placeholder="search..." />
+				</form>
+				<a href="/user_page">Profile </a>|<a href="/logout" class="nav_link"> Logout</a>
+			</div>
+		</header>
+
+		<div class="block_content">
+			{% for x in items %}
+			<div class="block">
+				<a href="#"><img src="{{MEDIA_URL}}{{x.cover}}"></a>
+			</div>
+			{% endfor %}
+		</div>		
+	</div>
+</body>
+</html>

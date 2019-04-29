@@ -119,3 +119,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
 STATIC_URL = '/static/'
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, '/Users/andriiG/Documents/CodingDojo/python_stack/django/django_intro/three_d_models_stock/apps/three_d_models_stock_app/static/three_d_models_stock_app/media')
+
+

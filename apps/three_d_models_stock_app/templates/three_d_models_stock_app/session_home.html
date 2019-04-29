@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<title>3dModelsSTOCK</title>
+	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" 
+	rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" 
+	crossorigin="anonymous">
+	{% load static %}
+	<link rel="stylesheet" href="{% static 'three_d_models_stock_app/css/style.css' %}">
+	<link href='https://fonts.googleapis.com/css?family=Raleway:400,800,300' rel='stylesheet' type='text/css'>
+</head>
+<body>
+	<div class="wrapper">
+		<header class="header">
+			<h1>3DModelsSTOCK</h1>
+			<div class="nav">
+				<form action="{% url 'search' %}" method="GET">
+				    <input type="text" name="q" value="{{request.GET.q}}" placeholder="search..." />
+				</form>
+				<a href="/user_page">Profile </a>|<a href="/logout" class="nav_link"> Logout</a>
+			</div>
+		</header>
+		<div class="block_content">
+			<div class="block_category">
+				<form action="/category" method="POST">
+					{% csrf_token %}
+					<img src="{% static  'three_d_models_stock_app/images/1.jpg' %}">
+					<input type="hidden" name="category" value="Character">
+					<button type="submit">Character</button>
+				</form>
+			</div>
+			<div class="block_category">
+				<form action="/category" method="POST">
+					{% csrf_token %}
+					<img src="{% static  'three_d_models_stock_app/images/3.jpg' %}">
+					<input type="hidden" name="category" value="Vehicle">
+					<button type="submit">Vehicle</button>
+				</form>
+			</div>
+			<div class="block_category">
+				<form action="/category" method="POST">
+					{% csrf_token %}
+					<img src="{% static  'three_d_models_stock_app/images/8.jpg' %}">
+					<button type="submit">Food</button>
+					<input type="hidden" name="category" value="Food">
+				</form>
+			</div>
+			<div class="block_category">
+				<form action="/category" method="POST">
+					{% csrf_token %}
+					<img src="{% static  'three_d_models_stock_app/images/5.jpg' %}">
+					<button type="submit">Interior</button>
+					<input type="hidden" name="category" value="Interior">
+				</form>
+			</div>	
+		</div>		
+	</div>
+</body>
+</html>

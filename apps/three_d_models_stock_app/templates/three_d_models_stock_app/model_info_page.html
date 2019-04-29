@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<title>3dModelsSTOCK</title>
+	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+	rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" 
+	crossorigin="anonymous">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+	{% load static %}
+	<link rel="stylesheet" href="{% static 'three_d_models_stock_app/css/style.css' %}">
+	
+</head>
+<body>
+	<div class="wrapper">
+		<header class="header">
+			<a href="/session_home" class="logo">3DModelsSTOCK</a>
+			<div class="nav">
+				<form action="{% url 'search' %}" method="GET">
+				    <input type="text" name="q" value="{{request.GET.q}}" placeholder="search..." />
+				</form>
+				<a href="/session_home">Home </a>|<a href="/logout" class="nav_link"> Logout</a>
+			</div>
+		</header>
+		<div class="content">
+			<div class="model_info_content">
+				{% for x in info %}
+				<div class="block">
+					<img src="{{MEDIA_URL}}{{x.cover}}">
+					<p>Name: {{x.title}}</p>
+					<p>Category: {{x.category}}</p>
+					<p>Format: {{x.format}}</p>
+					<p>Created At: {{x.created_at}}</p>
+					<p>Author: (user name - author)</p>
+				</div>
+				{% endfor %}
+			</div>
+			<div class="model_info_function">
+				DOWNLOAD BUTTON
+				(after click download
+				process)
+			</div>
+		</div>		
+	</div>
+</body>
+</html>
+
+
+
+
+
+
